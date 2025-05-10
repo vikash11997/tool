@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Haxaa Shorts - YouTube to Shorts Converter</title>
+    <!-- Google AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_ADSENSE_ID" crossorigin="anonymous"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #000;
+            color: #fff;
+            min-height: 100vh;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #FF5F1F, #FF9500);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .logo-icon {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #fff;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #fff;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 1.5rem;
+        }
+        
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        
+        nav ul li a:hover {
+            background-color: rgba(255,255,255,0.2);
+        }
+        
+        .main-container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+            display: flex;
+            gap: 2rem;
+        }
+        
+        .converter-section {
+            flex: 1;
+        }
+        
+        .demo-section {
+            flex: 1;
+            position: sticky;
+            top: 80px;
+            height: fit-content;
+        }
+        
+        .converter-box {
+            background-color: #111;
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: 0 4px 15px rgba(255,255,255,0.05);
+            margin-bottom: 2rem;
+        }
+        
+        h1, h2, h3 {
+            color: #fff;
+            margin-bottom: 1rem;
+        }
+        
+        /* Large Ad Container Styles */
+        .ad-container {
+            width: 100%;
+            margin: 2rem 0;
+            background-color: #222;
+            border-radius: 8px;
+            overflow: hidden;
+            text-align: center;
+            padding: 1rem;
+        }
+        
+        .ad-label {
+            color: #aaa;
+            font-size: 0.8rem;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+        }
+        
+        .input-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #ddd;
+        }
+        
+        select, input {
+            width: 100%;
+            padding: 12px;
+            margin: 8px 0;
+            border: 1px solid #333;
+            border-radius: 5px;
+            font-size: 1rem;
+            background-color: #222;
+            color: #fff;
+        }
+        
+        button {
+            background: linear-gradient(135deg, #FF5F1F, #FF9500);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 1rem;
+            transition: transform 0.3s, box-shadow 0.3s;
+            width: 100%;
+            margin-top: 0.5rem;
+            box-shadow: 0 4px 8px rgba(255,95,31,0.3);
+        }
+        
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(255,95,31,0.4);
+        }
+        
+        .btn-group {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        
+        .btn-group button {
+            flex: 1;
+        }
+        
+        .result {
+            margin-top: 2rem;
+            display: none;
+        }
+        
+        .video-container {
+            margin-top: 1rem;
+            border-radius: 8px;
+            overflow: hidden;
+            background-color: #000;
+        }
+        
+        .demo-video {
+            width: 100%;
+            border-radius: 10px;
+            margin-top: 1rem;
+        }
+        
+        .payment-options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+        
+        .payment-option {
+            flex: 1;
+            min-width: 120px;
+            padding: 1rem;
+            background-color: #222;
+            border-radius: 8px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .payment-option:hover {
+            background-color: #333;
+            transform: translateY(-3px);
+        }
+        
+        .payment-option img {
+            width: 50px;
+            height: 30px;
+            object-fit: contain;
+            margin-bottom: 0.5rem;
+        }
+        
+        .history-item {
+            padding: 1rem;
+            border-bottom: 1px solid #333;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background-color 0.3s;
+        }
+        
+        .history-item:hover {
+            background-color: #222;
+        }
+        
+        .history-item:last-child {
+            border-bottom: none;
+        }
+        
+        footer {
+            background: linear-gradient(135deg, #FF5F1F, #FF9500);
+            color: white;
+            text-align: center;
+            padding: 1.5rem;
+            margin-top: 3rem;
+        }
+        
+        @media (max-width: 768px) {
+            .main-container {
+                flex-direction: column;
+            }
+            
+            header {
+                flex-direction: column;
+                padding: 1rem;
+            }
+            
+            .logo {
+                margin-bottom: 1rem;
+            }
+            
+            nav ul {
+                width: 100%;
+                justify-content: space-around;
+            }
+            
+            nav ul li {
+                margin: 0;
+            }
+            
+            .demo-section {
+                position: static;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <div class="logo-icon">HXS</div>
+            <div class="logo-text">Haxaa Shorts</div>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#" class="active">HOME</a></li>
+                <li><a href="#premium">PREMIUM</a></li>
+                <li><a href="#history">HISTORY</a></li>
+                <li><a href="#login">LOGIN</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <!-- Top Ad Banner -->
+    <div class="ad-container">
+        <div class="ad-label">Advertisement</div>
+        <!-- Google AdSense Horizontal Banner -->
+        <ins class="adsbygoogle"
+             style="display:block"
+             data-ad-client="ca-pub-YOUR_ADSENSE_ID"
+             data-ad-slot="YOUR_AD_SLOT_ID"
+             data-ad-format="auto"
+             data-full-width-responsive="true"></ins>
+        <script>
+             (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+    </div>
+    
+    <div class="main-container">
+        <section class="converter-section">
+            <section class="converter-box">
+                <h1>Convert YouTube Videos to Shorts</h1>
+                
+                <!-- Middle Ad Banner -->
+                <div class="ad-container">
+                    <div class="ad-label">Advertisement</div>
+                    <!-- Google AdSense Rectangle -->
+                    <ins class="adsbygoogle"
+                         style="display:block"
+                         data-ad-client="ca-pub-YOUR_ADSENSE_ID"
+                         data-ad-slot="YOUR_AD_SLOT_ID"
+                         data-ad-format="rectangle"
+                         data-full-width-responsive="true"></ins>
+                    <script>
+                         (adsbygoogle = window.adsbygoogle || []).push({});
+                    </script>
+                </div>
+                
+                <div class="input-group">
+                    <select id="language">
+                        <option value="en">English</option>
+                        <option value="hi">हिन्दी</option>
+                        <option value="es">Español</option>
+                        <option value="fr">Français</option>
+                        <option value="de">Deutsch</option>
+                        <option value="pt">Português</option>
+                        <option value="ru">Русский</option>
+                        <option value="ja">日本語</option>
+                        <option value="zh">中文</option>
+                        <option value="ar">العربية</option>
+                        <option value="bn">বাংলা</option>
+                        <option value="pa">ਪੰਜਾਬੀ</option>
+                        <option value="mr">मराठी</option>
+                        <option value="ta">தமிழ்</option>
+                        <option value="te">తెలుగు</option>
+                    </select>
+                </div>
+                
+                <div class="input-group">
+                    <input type="text" id="youtube-url" placeholder="Enter YouTube URL">
+                </div>
+                
+                <div class="btn-group">
+                    <button onclick="setVideoSize('9:16')">9:16 (Shorts)</button>
+                    <button onclick="setVideoSize('1:1')">1:1 (Square)</button>
+                    <button onclick="setVideoSize('4:5')">4:5 (Portrait)</button>
+                </div>
+                
+                <div class="input-group">
+                    <label for="duration">Custom Duration (seconds)</label>
+                    <input type="number" id="duration" placeholder="60" min="15" max="180">
+                </div>
+                
+                <button onclick="convertToShort()">Convert to Short</button>
+                
+                <div class="result" id="result">
+                    <h3>Your Short Video</h3>
+                    <div class="video-container" id="video-container"></div>
+                    <button id="download-btn">Download Short</button>
+                </div>
+            </section>
+            
+            <!-- Bottom Ad Banner -->
+            <div class="ad-container">
+                <div class="ad-label">Advertisement</div>
+                <!-- Google AdSense Horizontal Banner -->
+                <ins class="adsbygoogle"
+                     style="display:block"
+                     data-ad-client="ca-pub-YOUR_ADSENSE_ID"
+                     data-ad-slot="YOUR_AD_SLOT_ID"
+                     data-ad-format="auto"
+                     data-full-width-responsive="true"></ins>
+                <script>
+                     (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
+            </div>
+            
+            <section id="premium" class="converter-box" style="display: none;">
+                <h2>HXS Premium</h2>
+                <ul style="margin: 1rem 0 1.5rem 1.5rem;">
+                    <li>No watermarks on downloaded shorts</li>
+                    <li>Batch convert multiple videos</li>
+                    <li>Higher quality downloads (up to 4K)</li>
+                    <li>Priority processing</li>
+                    <li>Advanced editing tools</li>
+                    <li>Custom durations up to 10 minutes</li>
+                </ul>
+                
+                <h3>Choose Payment Method</h3>
+                <div class="payment-options">
+                    <div class="payment-option" onclick="selectPayment('upi')">
+                        <img src="https://via.placeholder.com/50x30?text=UPI" alt="UPI">
+                        <p>UPI</p>
+                    </div>
+                    <div class="payment-option" onclick="selectPayment('debit')">
+                        <img src="https://via.placeholder.com/50x30?text=Debit" alt="Debit Card">
+                        <p>Debit Card</p>
+                    </div>
+                    <div class="payment-option" onclick="selectPayment('credit')">
+                        <img src="https://via.placeholder.com/50x30?text=Credit" alt="Credit Card">
+                        <p>Credit Card</p>
+                    </div>
+                    <div class="payment-option" onclick="selectPayment('paypal')">
+                        <img src="https://via.placeholder.com/50x30?text=PayPal" alt="PayPal">
+                        <p>PayPal</p>
+                    </div>
+                </div>
+                
+                <div id="payment-form" style="display: none;">
+                    <!-- Payment form will be shown here -->
+                </div>
+                
+                <button id="purchase-btn" style="display: none;">Get HXS Premium</button>
+            </section>
+            
+            <section id="history" class="converter-box" style="display: none;">
+                <h2>Your Conversion History</h2>
+                <div id="history-list">
+                    <div class="history-item">
+                        <span>How to Make Perfect Coffee</span>
+                        <span>2 days ago</span>
+                    </div>
+                    <div class="history-item">
+                        <span>Morning Yoga Routine</span>
+                        <span>1 week ago</span>
+                    </div>
+                    <div class="history-item">
+                        <span>5 Minute Ab Workout</span>
+                        <span>2 weeks ago</span>
+                    </div>
+                </div>
+            </section>
+            
+            <section id="login" class="converter-box" style="display: none;">
+                <h2>HXS Account</h2>
+                <div class="input-group">
+                    <input type="email" placeholder="Email">
+                </div>
+                <div class="input-group">
+                    <input type="password" placeholder="Password">
+                </div>
+                <button>Login</button>
+                <p style="text-align: center; margin-top: 1rem;">Don't have an account? <a href="#" style="color: #FF9500;">Sign up</a></p>
+            </section>
+        </section>
+        
+        <section class="demo-section">
+            <div class="converter-box">
+                <h2>HXS in Action</h2>
+                <div class="video-container">
+                    <video class="demo-video" controls autoplay muted loop>
+                        <source src="https://example.com/demo-conversion.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+                <p style="margin-top: 1rem; color: #ddd;">See how Haxaa Shorts converts videos instantly with perfect formatting.</p>
+                
+                <!-- Sidebar Ad -->
+                <div class="ad-container" style="margin-top: 2rem;">
+                    <div class="ad-label">Advertisement</div>
+                    <!-- Google AdSense Vertical Banner -->
+                    <ins class="adsbygoogle"
+                         style="display:block"
+                         data-ad-client="ca-pub-YOUR_ADSENSE_ID"
+                         data-ad-slot="YOUR_AD_SLOT_ID"
+                         data-ad-format="vertical"
+                         data-full-width-responsive="true"></ins>
+                    <script>
+                         (adsbygoogle = window.adsbygoogle || []).push({});
+                    </script>
+                </div>
+            </div>
+        </section>
+    </div>
+    
+    <!-- Footer Ad Banner -->
+    <div class="ad-container">
+        <div class="ad-label">Advertisement</div>
+        <!-- Google AdSense Horizontal Banner -->
+        <ins class="adsbygoogle"
+             style="display:block"
+             data-ad-client="ca-pub-YOUR_ADSENSE_ID"
+             data-ad-slot="YOUR_AD_SLOT_ID"
+             data-ad-format="auto"
+             data-full-width-responsive="true"></ins>
+        <script>
+             (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+    </div>
+    
+    <footer>
+        <p>&copy; 2023 Haxaa Shorts (HXS). All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Navigation functionality
+        document.querySelectorAll('nav a').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Hide all sections
+                document.querySelectorAll('.converter-section .converter-box').forEach(section => {
+                    section.style.display = 'none';
+                });
+                
+                // Show clicked section
+                const target = this.getAttribute('href');
+                if(target === '#') {
+                    document.querySelector('.converter-section .converter-box').style.display = 'block';
+                } else {
+                    document.querySelector(target).style.display = 'block';
+                }
+                
+                // Update active nav link
+                document.querySelectorAll('nav a').forEach(navLink => {
+                    navLink.classList.remove('active');
+                });
+                this.classList.add('active');
+            });
+        });
+
+        // Video size selection
+        function setVideoSize(ratio) {
+            alert(`Video aspect ratio set to ${ratio}`);
+            // In real implementation, this would set the conversion parameters
+        }
+
+        // Payment method selection
+        function selectPayment(method) {
+            const paymentForm = document.getElementById('payment-form');
+            const purchaseBtn = document.getElementById('purchase-btn');
+            
+            // Clear previous form
+            paymentForm.innerHTML = '';
+            
+            // Create appropriate form based on payment method
+            switch(method) {
+                case 'upi':
+                    paymentForm.innerHTML = `
+                        <div class="input-group">
+                            <label>UPI ID</label>
+                            <input type="text" placeholder="yourname@upi">
+                        </div>
+                    `;
+                    break;
+                case 'debit':
+                case 'credit':
+                    paymentForm.innerHTML = `
+                        <div class="input-group">
+                            <label>Card Number</label>
+                            <input type="text" placeholder="1234 5678 9012 3456">
+                        </div>
+                        <div class="input-group">
+                            <label>Expiry Date</label>
+                            <input type="text" placeholder="MM/YY">
+                        </div>
+                        <div class="input-group">
+                            <label>CVV</label>
+                            <input type="text" placeholder="123">
+                        </div>
+                        <div class="input-group">
+                            <label>Name on Card</label>
+                            <input type="text" placeholder="Your Name">
+                        </div>
+                    `;
+                    break;
+                case 'paypal':
+                    paymentForm.innerHTML = `<p>You will be redirected to PayPal for payment</p>`;
+                    break;
+            }
+            
+            paymentForm.style.display = 'block';
+            purchaseBtn.style.display = 'block';
+        }
+
+        // Conversion function
+        function convertToShort() {
+            const url = document.getElementById('youtube-url').value;
+            const duration = document.getElementById('duration').value || 60;
+            
+            if(!url) {
+                alert("Please enter a YouTube URL");
+                return;
+            }
+            
+            // Extract video ID (simplified example)
+            let videoId = url.split('v=')[1];
+            if(videoId) {
+                videoId = videoId.split('&')[0];
+                
+                // Create short video (this would be server-side in real implementation)
+                document.getElementById('video-container').innerHTML = `
+                    <iframe width="100%" height="500" src="https://www.youtube.com/embed/${videoId}?start=0&end=${duration}" frameborder="0" allowfullscreen></iframe>
+                `;
+                
+                document.getElementById('result').style.display = 'block';
+                
+                // Add to history (in real implementation this would be saved to database)
+                const historyList = document.getElementById('history-list');
+                const newItem = document.createElement('div');
+                newItem.className = 'history-item';
+                newItem.innerHTML = `
+                    <span>Converted Video (${duration}s)</span>
+                    <span>Just now</span>
+                `;
+                historyList.prepend(newItem);
+            } else {
+                alert("Invalid YouTube URL");
+            }
+        }
+    </script>
+</body>
+</html>
