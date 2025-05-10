@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Haxaa Tools - Premium Online Tools</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #FF6B35;
+            --primary-dark: #E55627;
+            --secondary: #004E89;
+            --dark: #1A1A2E;
+            --light: #F5F5F5;
+            --gray: #E2E2E2;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+        }
+        
+        /* Header */
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            padding: 1rem 2rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .logo-icon {
+            font-size: 2rem;
+            font-weight: bold;
+        }
+        
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            transition: all 0.3s;
+        }
+        
+        .nav-links a:hover {
+            background-color: rgba(255,255,255,0.2);
+        }
+        
+        .auth-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .btn {
+            padding: 0.6rem 1.2rem;
+            border-radius: 5px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: none;
+        }
+        
+        .btn-outline {
+            background: transparent;
+            border: 2px solid white;
+            color: white;
+        }
+        
+        .btn-outline:hover {
+            background: white;
+            color: var(--primary);
+        }
+        
+        .btn-primary {
+            background: white;
+            color: var(--primary);
+        }
+        
+        .btn-primary:hover {
+            background: var(--light);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 5rem 2rem;
+            text-align: center;
+        }
+        
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+        
+        .search-bar {
+            display: flex;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .search-bar input {
+            flex: 1;
+            padding: 1rem;
+            border: none;
+            border-radius: 5px 0 0 5px;
+            font-size: 1rem;
+        }
+        
+        .search-bar button {
+            padding: 0 1.5rem;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 0 5px 5px 0;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        
+        .search-bar button:hover {
+            background: var(--primary-dark);
+        }
+        
+        /* Tools Section */
+        .tools-section {
+            padding: 4rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .section-header h2 {
+            font-size: 2.2rem;
+            color: var(--dark);
+            margin-bottom: 1rem;
+        }
+        
+        .section-header p {
+            color: #666;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+        
+        .tool-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .tool-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+        
+        .tool-card-img {
+            height: 160px;
+            background: var(--gray);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: var(--primary);
+        }
+        
+        .tool-card-content {
+            padding: 1.5rem;
+        }
+        
+        .tool-card h3 {
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+        }
+        
+        .tool-card p {
+            color: #666;
+            margin-bottom: 1.5rem;
+            font-size: 0.9rem;
+        }
+        
+        .tool-card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .badge {
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        
+        .badge-free {
+            background: #E3F2FD;
+            color: var(--secondary);
+        }
+        
+        .badge-premium {
+            background: #FFF8E1;
+            color: #FF8F00;
+        }
+        
+        /* Premium Section */
+        .premium-section {
+            background: linear-gradient(135deg, var(--secondary), #003366);
+            color: white;
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+        
+        .premium-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .premium-cards {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 3rem;
+            flex-wrap: wrap;
+        }
+        
+        .premium-card {
+            background: white;
+            border-radius: 10px;
+            padding: 2rem;
+            width: 300px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+            color: var(--dark);
+        }
+        
+        .premium-card.featured {
+            transform: scale(1.05);
+            border: 3px solid var(--primary);
+        }
+        
+        .premium-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--secondary);
+        }
+        
+        .price {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: var(--dark);
+        }
+        
+        .price span {
+            font-size: 1rem;
+            color: #666;
+        }
+        
+        .premium-features {
+            list-style: none;
+            margin-bottom: 2rem;
+            text-align: left;
+        }
+        
+        .premium-features li {
+            margin-bottom: 0.8rem;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+        
+        .premium-features li:before {
+            content: "✓";
+            color: var(--primary);
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 3rem 2rem 1.5rem;
+        }
+        
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+        }
+        
+        .footer-col h3 {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+        
+        .footer-col h3:after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 50px;
+            height: 2px;
+            background: var(--primary);
+        }
+        
+        .footer-col ul {
+            list-style: none;
+        }
+        
+        .footer-col ul li {
+            margin-bottom: 0.8rem;
+        }
+        
+        .footer-col ul li a {
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-col ul li a:hover {
+            color: white;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .social-links a {
+            color: white;
+            background: rgba(255,255,255,0.1);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.3s;
+        }
+        
+        .social-links a:hover {
+            background: var(--primary);
+        }
+        
+        .copyright {
+            text-align: center;
+            margin-top: 3rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            color: #aaa;
+            font-size: 0.9rem;
+        }
+        
+        /* Responsive */
+        @media (max-width: 992px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .hero {
+                padding: 3rem 1rem;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .search-bar {
+                flex-direction: column;
+            }
+            
+            .search-bar input {
+                border-radius: 5px;
+                margin-bottom: 0.5rem;
+            }
+            
+            .search-bar button {
+                border-radius: 5px;
+                padding: 0.8rem;
+            }
+            
+            .premium-cards {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .premium-card.featured {
+                transform: none;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .navbar {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .auth-buttons {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .btn {
+                width: 100%;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="navbar">
+            <div class="logo">
+                <div class="logo-icon">HXS</div>
+                <div class="logo-text">Haxaa Tools</div>
+            </div>
+            
+            <nav class="nav-links">
+                <a href="#" class="active">Home</a>
+                <a href="#tools">Tools</a>
+                <a href="#premium">Premium</a>
+                <a href="#features">Features</a>
+                <a href="#contact">Contact</a>
+            </nav>
+            
+            <div class="auth-buttons">
+                <button class="btn btn-outline">Login</button>
+                <button class="btn btn-primary">Sign Up</button>
+            </div>
+            
+            <button class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </header>
+    
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Powerful Tools for Your Daily Needs</h1>
+            <p>Access premium online tools to boost your productivity. Convert, edit, analyze and more with our powerful toolkit.</p>
+            
+            <div class="search-bar">
+                <input type="text" placeholder="Search for tools...">
+                <button><i class="fas fa-search"></i></button>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Popular Tools Section -->
+    <section class="tools-section" id="tools">
+        <div class="section-header">
+            <h2>Our Most Popular Tools</h2>
+            <p>Discover our collection of free and premium tools designed to make your work easier</p>
+        </div>
+        
+        <div class="tools-grid">
+            <!-- Tool Card 1 -->
+           <div class="tool-card" style="position: relative;">
+    <div class="tool-card-img">
+        <i class="fas fa-video"></i>
+    </div>
+    <div class="tool-card-content">
+        <h3>Video Converter</h3>
+        <p>Convert videos to any format with high quality and fast processing.</p>
+        <div class="tool-card-footer">
+            <span class="badge badge-free">FREE</span>
+            <a href="https://example.com/video-converter" class="/shorts-haxaa.html"></a>
+            <button class="btn btn-primary">Use Tool</button>
+                 </div>
+                 </div>
+                     </div>
+
+            
+            <!-- Tool Card 2 -->
+            <div class="tool-card">
+                <div class="tool-card-img">
+                    <i class="fas fa-file-pdf"></i>
+                </div>
+                <div class="tool-card-content">
+                    <h3>PDF Editor</h3>
+                    <p>Edit, merge, compress and convert PDF files with our powerful editor.</p>
+                    <div class="tool-card-footer">
+                        <span class="badge badge-premium">PREMIUM</span>
+                        <button class="btn btn-primary">Upgrade</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Tool Card 3 -->
+            <div class="tool-card">
+                <div class="tool-card-img">
+                    <i class="fas fa-image"></i>
+                </div>
+                <div class="tool-card-content">
+                    <h3>Image Compressor</h3>
+                    <p>Reduce image file size without losing quality. Supports all formats.</p>
+                    <div class="tool-card-footer">
+                        <span class="badge badge-free">FREE</span>
+                        <button class="btn btn-primary">Use Tool</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Tool Card 4 -->
+            <div class="tool-card">
+                <div class="tool-card-img">
+                    <i class="fas fa-code"></i>
+                </div>
+                <div class="tool-card-content">
+                    <h3>Code Formatter</h3>
+                    <p>Format and beautify your code in multiple programming languages.</p>
+                    <div class="tool-card-footer">
+                        <span class="badge badge-premium">PREMIUM</span>
+                        <button class="btn btn-primary">Upgrade</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Tool Card 5 -->
+            <div class="tool-card">
+                <div class="tool-card-img">
+                    <i class="fas fa-chart-bar"></i>
+                </div>
+                <div class="tool-card-content">
+                    <h3>Data Analyzer</h3>
+                    <p>Upload your data and get instant visualizations and insights.</p>
+                    <div class="tool-card-footer">
+                        <span class="badge badge-premium">PREMIUM</span>
+                        <button class="btn btn-primary">Upgrade</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Tool Card 6 -->
+            <div class="tool-card">
+                <div class="tool-card-img">
+                    <i class="fas fa-text-height"></i>
+                </div>
+                <div class="tool-card-content">
+                    <h3>Text Utilities</h3>
+                    <p>Case converter, word counter, text reverser and more text tools.</p>
+                    <div class="tool-card-footer">
+                        <span class="badge badge-free">FREE</span>
+                        <button class="btn btn-primary">Use Tool</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Premium Section -->
+    <section class="premium-section" id="premium">
+        <div class="premium-container">
+            <div class="section-header">
+                <h2>Unlock Premium Features</h2>
+                <p>Upgrade to access all tools without limitations and get exclusive features</p>
+            </div>
+            
+            <div class="premium-cards">
+                <!-- Basic Plan -->
+                <div class="premium-card">
+                    <h3>Basic</h3>
+                    <div class="price">$9.99<span>/month</span></div>
+                    <ul class="premium-features">
+                        <li>Access to 10+ basic tools</li>
+                        <li>Limited conversions per day</li>
+                        <li>Standard processing speed</li>
+                        <li>Email support</li>
+                        <li>Ad-free experience</li>
+                    </ul>
+                    <button class="btn btn-primary">Get Started</button>
+                </div>
+                
+                <!-- Pro Plan (Featured) -->
+                <div class="premium-card featured">
+                    <h3>Pro</h3>
+                    <div class="price">$19.99<span>/month</span></div>
+                    <ul class="premium-features">
+                        <li>Access to all 50+ tools</li>
+                        <li>Unlimited conversions</li>
+                        <li>Priority processing</li>
+                        <li>24/7 support</li>
+                        <li>Advanced features</li>
+                        <li>Team collaboration</li>
+                    </ul>
+                    <button class="btn btn-primary">Get Started</button>
+                </div>
+                
+                <!-- Business Plan -->
+                <div class="premium-card">
+                    <h3>Business</h3>
+                    <div class="price">$49.99<span>/month</span></div>
+                    <ul class="premium-features">
+                        <li>Everything in Pro</li>
+                        <li>Up to 10 team members</li>
+                        <li>Custom tool integrations</li>
+                        <li>Dedicated account manager</li>
+                        <li>API access</li>
+                        <li>White-label options</li>
+                    </ul>
+                    <button class="btn btn-primary">Get Started</button>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-col">
+                <h3>Haxaa Tools</h3>
+                <p>Powerful online tools to boost your productivity and simplify your work.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+            
+            <div class="footer-col">
+                <h3>Tools</h3>
+                <ul>
+                    <li><a href="#">Video Tools</a></li>
+                    <li><a href="#">PDF Tools</a></li>
+                    <li><a href="#">Image Tools</a></li>
+                    <li><a href="#">Code Tools</a></li>
+                    <li><a href="#">Text Tools</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-col">
+                <h3>Company</h3>
+                <ul>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Pricing</a></li>
+                    <li><a href="#">Careers</a></li>
+                    <li><a href="#">Blog</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-col">
+                <h3>Support</h3>
+                <ul>
+                    <li><a href="#">Help Center</a></li>
+                    <li><a href="#">FAQ</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                    <li><a href="#">Cookies</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="copyright">
+            &copy; 2023 Haxaa Tools. All rights reserved.
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const navLinks = document.querySelector('.nav-links');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
+        });
+        
+        // Responsive adjustment
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 992) {
+                navLinks.style.display = 'flex';
+            } else {
+                navLinks.style.display = 'none';
+            }
+        });
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
